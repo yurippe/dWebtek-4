@@ -54,12 +54,23 @@ public class ShopService {
 
     @GET
     @Path("user")
+    @Produces("text/json")
     public String getLoggedInUser(){
 
         User user = (User) session.getAttribute("user");
-        if(user == null){ return "Not logged in";}
+        if(user == null){
 
-        return user.getUsername();
+            JSONObject jsonItem = new JSONObject();
+            jsonItem.put("status", "error");
+            jsonItem.put("message", "not logged in");
+            return jsonItem.toString();
+
+        }
+
+        JSONObject jsonItem = new JSONObject();
+        jsonItem.put("status", "ok");
+        jsonItem.put("message", user.getUsername());
+        return jsonItem.toString();
     }
 
     @POST
@@ -87,9 +98,13 @@ public class ShopService {
 
     @GET
     @Path("logout")
+    @Produces("text/json")
     public String logoutUser(){
         this.session.invalidate();
-        return "Session deleted";
+        JSONObject jsonItem = new JSONObject();
+        jsonItem.put("status", "ok");
+        jsonItem.put("message", "logged out");
+        return jsonItem.toString();
     }
 
     @POST
@@ -112,4 +127,44 @@ public class ShopService {
         }
 
     }
+
+    @POST
+    @Path("addtocart")
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces("text/json")
+    public String addToCart(@FormParam("itemid") int itemID, @FormParam("amount") int amount){
+
+        User user = (User) this.session.getAttribute("user");
+        if(user == null){
+            JSONObject jsonItem = new JSONObject();
+            jsonItem.put("status", "error");
+            jsonItem.put("message", "you need to log in before you can add items to the cart");
+            return jsonItem.toString();
+        }
+
+        //The user is logged in
+        user.getShoppingCart().addToCart(itemID, amount);
+
+        JSONObject jsonItem = new JSONObject();
+        jsonItem.put("status", "ok");
+        jsonItem.put("message", "Added " + amount + " of item " + itemID);
+        return jsonItem.toString();
+    }
+
+    @GET
+    @Path("shoppingcart")
+    @Produces("text/json")
+    public String getShoppingCart(){
+        User user = (User) this.session.getAttribute("user");
+
+        if(user == null) {
+            JSONObject jsonItem = new JSONObject();
+            jsonItem.put("status", "error");
+            jsonItem.put("message", "Not logged in");
+            return jsonItem.toString();
+        }
+
+        return user.getShoppingCart().getShoppingCartJSON();
+    }
+
 }
