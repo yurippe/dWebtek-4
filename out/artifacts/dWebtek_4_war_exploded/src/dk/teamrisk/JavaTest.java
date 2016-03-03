@@ -1,5 +1,7 @@
 package dk.teamrisk;
 
+import dk.teamrisk.Easy.EasyXML;
+
 /**
  * Created by Kristian on 3/3/2016.
  */

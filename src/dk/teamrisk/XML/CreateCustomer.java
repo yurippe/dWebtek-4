@@ -1,9 +1,9 @@
 package dk.teamrisk.XML;
 
-import dk.teamrisk.EasyResponse;
-import dk.teamrisk.EasyXML;
-import dk.teamrisk.EasyXMLResponse;
-import dk.teamrisk.XMLValidator;
+import dk.teamrisk.Easy.EasyResponse;
+import dk.teamrisk.Easy.EasyXML;
+import dk.teamrisk.Easy.EasyXMLResponse;
+import dk.teamrisk.Easy.XMLValidator;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;

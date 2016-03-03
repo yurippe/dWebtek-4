@@ -1,7 +1,7 @@
 package dk.teamrisk.XML;
 
-import dk.teamrisk.EasyXML;
-import dk.teamrisk.EasyXMLResponse;
+import dk.teamrisk.Easy.EasyXML;
+import dk.teamrisk.Easy.EasyXMLResponse;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.output.XMLOutputter;
