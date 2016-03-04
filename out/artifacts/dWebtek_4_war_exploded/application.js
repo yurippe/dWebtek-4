@@ -94,7 +94,9 @@ function loadItems(){
 
         $("button.addToCart").click(function(){
             $itemid = $(this).attr("data-itemid");
-            $.post("rest/shop/addtocart", {itemID : $itemid, amount: 1}, function(data, textStatus){
+            $count = $("#products input[data-itemid=\"" + $itemid + "\"]").val();
+            if($count < 1){alert("you need to add at least 1 item"); return;}
+            $.post("rest/shop/addtocart", {itemID : $itemid, amount: $count}, function(data, textStatus){
 
                 if(data.status === "ok") {
                     updateCart();
@@ -105,6 +107,10 @@ function loadItems(){
             }, "json");
         })
 
+        $("a.imgLink").click(function () {
+           focusProduct($(this).attr("data-itemid"));
+        });
+
     }, "json");
 
 
@@ -114,17 +120,19 @@ function updateCart(){
 
     $.get("rest/shop/getshoppingcart", null, function(data, textStatus) {
 
-        $("#shoppingcart").html("<table></table>");
-
+        $("#shoppingcartitems").html("<table></table>");
         if(data.status === "error"){
             alert(data.message);
         }
         else {
-            $.each(data.data, function(index, element){
+            $.each(data.data.items, function(index, element){
 
-                $("#shoppingcart table").append("<tr><td>" + element.itemID + "</td><td>" + element.itemName + "</td><td>" + element.amount + "</td></tr>")
+                $("#shoppingcart table").append("<tr><td>" + element.itemName + "(" + element.itemID + ")</td><td>" +
+                    element.itemPrice + ",- each</td><td>amount: " + element.amount + "</td></tr>")
 
             });
+
+            $("#shoppingcart span.totalPrice").html(data.data.data.sum);
 
         }
 
@@ -156,13 +164,18 @@ function isLoggedIn() {
 
 function createProductHTML(item){
 
-    $prodhtml  = "<div class=\"product\"><div><a href=\"#\"><img src=\"";
+    $prodhtml  = "<div class=\"product\" data-itemid=\"" + item.itemID + "\"><div><a class=\"imgLink\" data-itemid=\"" + item.itemID + "\"><img src=\"";
     $prodhtml += item.itemURL + "\" alt=\"\" class=\"product_image\"></a>";
-    $prodhtml += "<p>" + item.itemName + "<br>" + item.itemPrice + ",- <input type=\"number\" value=\"1\" ";
-    $prodhtml += "class=\"noOfItemsForm\"> ";
+    $prodhtml += "<p><a class=\"imgLink\" data-itemid=\"" + item.itemID + "\">";
+    $prodhtml += item.itemName + "</a><br>" + item.itemPrice + ",-<br /><input type=\"number\" value=\"1\" ";
+    $prodhtml += "class=\"noOfItemsForm\" data-itemid=\"" + item.itemID + "\" > ";
     //$prodhtml += "<a href=\"\"> <img src=\"img/cart.svg\" alt=\"\" class=\"cart_icon\"> </a>";
     $prodhtml += "<button type=\"button\" class=\"addToCart\" data-itemid=\"" + item.itemID + "\">add to cart</button>"
-    $prodhtml += "</p></div></div>";
+    $prodhtml += "</p></div>" + item.itemDescription + "</div>";
 
     return $prodhtml;
+}
+
+function focusProduct(itemid){
+
 }

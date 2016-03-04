@@ -47,4 +47,8 @@ public class ShoppingCartItem {
         item.put("amount", amount);
         return item;
     }
+
+    public int getItemPrice(){
+        return this.itemPrice;
+    }
 }

@@ -17,6 +17,9 @@ body {
 	font-family: Candara, Georgia, Serif;
 }
 
+a.imgLink {
+  cursor: pointer;
+}
 header {
 	
 	padding-bottom: 1em;
@@ -88,6 +91,14 @@ ul.teamlist {
 		}
 		
 	}
+
+  	div.itemdescription {
+		max-width: 50%;
+	  	min-width: 50%;
+	  	width: 50%;
+	  	word-wrap: break-word;
+	  	padding: 5px;
+	}
 	
 
 	div.product{
@@ -156,4 +167,12 @@ footer {
 		max-height: 100%;
 		padding-top: 5px;
 	}
+}
+
+#shoppingcart {
+  background-color: #ffe87c;
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 1em;
 }

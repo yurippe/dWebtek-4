@@ -31,13 +31,21 @@ public class ShoppingCart {
         this.items = new HashMap<>();
     }
 
-    public JSONArray getShoppingCartJSON(){
+    public JSONObject getShoppingCartJSON(){
 
         JSONArray itemlist = new JSONArray();
+        int totalprice = 0;
         for(Integer i : items.keySet()){
-            itemlist.put(items.get(i).getJSON());
+            ShoppingCartItem cartItem = items.get(i);
+            itemlist.put(cartItem.getJSON());
+            totalprice += cartItem.getAmount() * cartItem.getItemPrice();
         }
-        return itemlist;
+        JSONObject shoppingCartData = new JSONObject();
+        JSONObject data = new JSONObject();
+        shoppingCartData.put("items", itemlist);
+        data.put("sum", totalprice);
+        shoppingCartData.put("data", data);
+        return shoppingCartData;
     }
 
 
