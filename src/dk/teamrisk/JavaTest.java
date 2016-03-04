@@ -15,7 +15,7 @@ public class JavaTest {
         List<Item> items = EasyXML.listItems();
         for(Item i : items){
             try {
-                i.setItemURL("img/baked_bean.png");
+                i.setItemURL("img/nopic.jpg");
                 EasyXML.modifyItem(i);
             } catch (Exception e){
                 System.out.println(i.getItemName());
