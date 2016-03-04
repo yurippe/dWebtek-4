@@ -40,7 +40,7 @@ public class ShopService extends BaseService{
             jsonItem.put("itemName", i.getItemName());
             jsonItem.put("itemPrice", i.getItemPrice());
             jsonItem.put("itemDescription", DocumentRenderer.renderDocument(i).getResponse());
-
+            jsonItem.put("itemURL", i.getItemURL());
             jsonItems.put(jsonItem);
 
         }

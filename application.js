@@ -79,15 +79,17 @@ function loadItems(){
             return;
         }
 
-        $("#products").html("<table></table>");
+        //$("#products").html("<table></table>");
+        $("#products").html("");
         $.each(data.data, function(index, element){
 
-            $tablerow = "<tr><td>" + element.itemName + "</td><td>" + element.itemDescription + "</td>";
+            /*$tablerow = "<tr><td>" + element.itemName + "</td><td>" + element.itemDescription + "</td>";
             $tablerow += "<td>" + element.itemPrice + "</td><td>";
             $tablerow += "<button type=\"button\" class=\"addToCart\" data-itemid=\"" + element.itemID + "\">";
             $tablerow += "add to cart</button>";
-            $tablerow += "</td></tr>";
-            $("#products table").append($tablerow);
+            $tablerow += "</td></tr>";*/
+            $tablerow = createProductHTML(element);
+            $("#products").append($tablerow);
         })
 
         $("button.addToCart").click(function(){
@@ -150,5 +152,17 @@ function isLoggedIn() {
 
     }, "json");
 
+}
 
+function createProductHTML(item){
+
+    $prodhtml  = "<div class=\"product\"><div><a href=\"#\"><img src=\"";
+    $prodhtml += item.itemURL + "\" alt=\"\" class=\"product_image\"></a>";
+    $prodhtml += "<p>" + item.itemName + "<br>" + item.itemPrice + ",- <input type=\"number\" value=\"1\" ";
+    $prodhtml += "class=\"noOfItemsForm\"> ";
+    //$prodhtml += "<a href=\"\"> <img src=\"img/cart.svg\" alt=\"\" class=\"cart_icon\"> </a>";
+    $prodhtml += "<button type=\"button\" class=\"addToCart\" data-itemid=\"" + item.itemID + "\">add to cart</button>"
+    $prodhtml += "</p></div></div>";
+
+    return $prodhtml;
 }

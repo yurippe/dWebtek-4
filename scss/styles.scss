@@ -1,0 +1,159 @@
+@import 'config';
+
+
+
+.cart_icon {
+    width: 12pt;
+}
+
+.noOfItemsForm {
+    width: 20pt;
+}
+
+body {
+	width: 80%;
+	margin: auto;
+	padding: 0;
+	font-family: Candara, Georgia, Serif;
+}
+
+header {
+	
+	padding-bottom: 1em;
+	
+	h1 {
+		text-align: center;
+	}
+}
+
+#banner {
+	
+	width:60%;
+	padding-left:20%;
+	padding-top: 3em;
+
+}
+
+img.product_image {
+	height: 150px;
+	width: auto;
+	padding-top: 1em;
+    transition: 0.2s;
+}
+img.product_image:hover {
+    transform: scale(1.1);
+    transition: 0.2s;
+}
+
+ul.teamlist {
+	margin-top: -15px;
+}
+			
+#products {
+
+	margin: auto;
+	div.product{
+		display: inline-flex;
+		
+		@media screen and (max-width: $break-small) and (min-width: $break-tiny){
+			width: 47%;
+		}
+		@media screen and (min-width: $break-small){
+			width: 22%;
+		}
+		
+		@media screen and (max-width: $break-tiny){
+			width: 98%;
+		}
+		
+		height: $product-height;
+		min-height: $product-height;
+		justify-content: center;
+		
+		
+		div {
+			//this is the div to hold the actual product
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			text-align: center;
+			width: 100%;
+			border: 3px solid gray;
+			border-radius: 10px;
+			
+			p {
+				text-align: center;
+			}
+			
+		}
+		
+	}
+	
+
+	div.product{
+			margin: 1% 1% 1% 1%;
+	}
+	
+	@media screen and (min-width: $break-small) {
+	//Big screens
+	div.product:nth-child(4n+1){
+			margin: 0 1% 1% 2%;
+	}
+	div.product:nth-child(4n){
+			margin: 1% 1% 1% 1%;
+	}
+
+	}
+	
+}
+
+div.footerspace {
+	min-height: $footer-height;
+	max-height: $footer-height;
+}
+footer {
+	
+	width: 100%;
+	max-height: $footer-height;
+	height: $footer-height;
+	margin: auto;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	overflow: hidden;
+
+	div.footerlogo {
+		float: left;
+		display: inline-block;
+		position: relative;
+		width: $footer-height;
+
+		height: 95%;
+		min-height: 100%; 
+		max-height: 100%;
+		text-align:right;
+		background-color: #FF9F27;
+		padding-left: 1%;
+		
+	}
+	
+	div.footertext {
+		float: right;
+		display: inline-block;
+		position: relative;
+		width: 97%;
+		width: calc(97% - #{$footer-height});
+		height: 100%;
+		min-height: 100%;
+		max-height: 100%;
+		background-color: #FF9F27;
+		padding-left: 2%;
+	}
+	
+	img.teamlogo {
+		height: $footer-height;
+		width: auto;
+		max-height: 100%;
+		padding-top: 5px;
+	}
+}

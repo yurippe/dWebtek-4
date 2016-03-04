@@ -1,6 +1,9 @@
 package dk.teamrisk;
 
 import dk.teamrisk.Easy.EasyXML;
+import dk.teamrisk.XML.Item;
+
+import java.util.List;
 
 /**
  * Created by Kristian on 3/3/2016.
@@ -8,11 +11,15 @@ import dk.teamrisk.Easy.EasyXML;
 public class JavaTest {
 
     public static void main(String[] args){
-        System.out.println(EasyXML.createCustomer("kristiankgs", "ksg").getResponse());
-        System.out.println("--");
-        System.out.println(EasyXML.loginCustomer("kristiang", "ksg").getResponse());
-        System.out.println("--");
-        System.out.println(EasyXML.loginCustomer("kristiang", "ksssg").getResponse());
-        System.out.println("--");
+
+        List<Item> items = EasyXML.listItems();
+        for(Item i : items){
+            try {
+                i.setItemURL("img/baked_bean.png");
+                EasyXML.modifyItem(i);
+            } catch (Exception e){
+                System.out.println(i.getItemName());
+            }
+        }
     }
 }
