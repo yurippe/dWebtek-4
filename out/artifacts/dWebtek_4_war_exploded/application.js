@@ -12,6 +12,59 @@ $loginform += "<button type=\"button\" id=\"signupbutton\" >Sign up</button>\n";
 
 $(function(){
 
+    //Set up REST calls for signup button
+    $("#signupbutton").click(function () {
+        $uname = $("#login input[name=\"username\"]").val();
+        $pass = $("#login input[name=\"password\"]").val();
+
+        if($uname.length < 3 ||$pass.length < 3){
+            $("#loginerror").html("Username and password must be at least 3 characters long");
+            return;
+        }
+
+        $("#loginerror").html("Creating user ... please wait");
+        $.post("rest/user/createuser", {username: $uname, password: $pass}, function(data){
+
+            if(data.status === "error"){
+                $("#loginerror").html(data.message);
+            } else {
+                //hack for auto login
+                $("#loginbutton").click();
+            }
+
+        }, "json")
+    });
+
+    //Set up REST calls for login button
+    $("#loginbutton").click(function () {
+        $uname = $("#login input[name=\"username\"]").val();
+        $pass = $("#login input[name=\"password\"]").val();
+        if($uname.length < 3 ||$pass.length < 3){
+            $("#loginerror").html("Username and password must be at least 3 characters long");
+            return;
+        }
+        $("#login").css("display", "none");
+        $("#loggedin").css("display", "");
+        $("#loggedinerror").html("Logging in ... please wait").css("display", "");
+        $("#welcomeback").css("display", "none");
+        $.post("rest/user/login", {username: $uname, password: $pass}, function(data){
+
+            if(data.status === "error"){
+                $("#loginerror").html(data.message);
+            } else {
+                isLoggedIn();
+            }
+
+        }, "json")
+    });
+
+    $("#logoutbutton").click(function(){
+        $.get("rest/user/logout", null, function(data){}, "json");
+        setTimeout(function(){
+            isLoggedIn();
+        }, 100);
+    });
+
     isLoggedIn();
     loadItems();
 });
@@ -81,49 +134,18 @@ function isLoggedIn() {
     $.get("rest/user/user", null, function(data, textStatus){
         //User is not logged in, present the login form:
         if(data.status === "error"){
-            $("#login").html($loginform);
-            //Also attach click listeners for the buttons:
-
-            $("#signupbutton").click(function () {
-                $uname = $("#login input[name=\"username\"]").val();
-                $pass = $("#login input[name=\"password\"]").val();
-                $.post("rest/user/createuser", {username: $uname, password: $pass}, function(data){
-
-                    if(data.status === "error"){
-                        $("#loginerror").html(data.message);
-                    } else {
-                        $("#loginbutton").click();
-                    }
-
-                }, "json")
-            });
-
-            $("#loginbutton").click(function () {
-                $uname = $("#login input[name=\"username\"]").val();
-                $pass = $("#login input[name=\"password\"]").val();
-                $.post("rest/user/login", {username: $uname, password: $pass}, function(data){
-
-                    if(data.status === "error"){
-                        $("#loginerror").html(data.message);
-                    } else {
-                        isLoggedIn();
-                    }
-
-                }, "json")
-            });
-
-
-            return;
+            $("#login").css("display", "");
+            $("#loggedin").css("display", "none");
+            $("#welcomeback").css("display", "none");
         }
 
         else {
-            $("#login").html("<p>Welcome back: " + data.data.username + "</p><button type=\"button\" id=\"logoutbutton\">Log out</button>");
-            $("#logoutbutton").click(function(){
-                $.get("rest/user/logout", null, function(data){}, "json");
-                setTimeout(function(){
-                    isLoggedIn();
-                }, 500);
-            });
+            $("#loggedinerror").html("");
+            $("#login").css("display", "none");
+            $("#loggedin").css("display", "");
+            $("#welcomeback").css("display", "");
+            $("#loggedinerror").css("display", "none");
+            $("#loggedin span").html(data.data.username);
         }
 
     }, "json");

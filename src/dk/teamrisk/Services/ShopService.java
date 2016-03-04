@@ -55,6 +55,10 @@ public class ShopService extends BaseService{
     @Produces("text/json")
     public String addToCart(@FormParam("itemID") int itemID, @FormParam("amount") int amount){
 
+        if(itemID <= 0){
+            return generateJsonResponse("error", "bad request");
+        }
+
         User user = getUser();
         if(user == null){
             return generateJsonResponse("error", "You need to log in before you can add items to the cart");

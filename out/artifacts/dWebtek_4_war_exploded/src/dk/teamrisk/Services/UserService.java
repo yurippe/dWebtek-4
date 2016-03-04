@@ -42,8 +42,12 @@ public class UserService extends BaseService{
     @Produces("text/json")
     public String loginUser(@FormParam("username") String username, @FormParam("password") String password) {
 
+        if(username == null || username.length() < 3 || password == null || password.length() < 3){
+            return generateJsonResponse("error", "bad request");
+        }
+
         EasyXMLResponse response = EasyXML.loginCustomer(username, password);
-        if(response.wasSuccessful()){
+        if (response.wasSuccessful()){
             User user = (User) response.getData();
             setUser(user);
             return generateJsonResponse("ok", response.getResponse());
@@ -66,6 +70,10 @@ public class UserService extends BaseService{
     @Consumes("application/x-www-form-urlencoded")
     @Produces("text/json")
     public String createUser(@FormParam("username") String username, @FormParam("password") String password) {
+
+        if(username == null || username.length() < 3 || password == null || password.length() < 3){
+            return generateJsonResponse("error", "bad request");
+        }
 
         EasyXMLResponse response = EasyXML.createCustomer(username, password);
         if(response.wasSuccessful()){
