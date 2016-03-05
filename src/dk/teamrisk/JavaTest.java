@@ -11,15 +11,8 @@ import java.util.List;
 public class JavaTest {
 
     public static void main(String[] args){
-
-        List<Item> items = EasyXML.listItems();
-        for(Item i : items){
-            try {
-                i.setItemURL("img/nopic.jpg");
-                EasyXML.modifyItem(i);
-            } catch (Exception e){
-                System.out.println(i.getItemName());
-            }
-        }
+        String d = "<w:document xmlns:w=\"http://www.cs.au.dk/dWebTek/2014\">Example <w:bold>descrip</w:bold><w:italics>tion</w:italics></w:document>";
+        Item i = new Item(1339, "Test item 3", "img/noimg.jpg", 50, 2, d);
+        System.out.println(i.constructXML().getResponse());
     }
 }

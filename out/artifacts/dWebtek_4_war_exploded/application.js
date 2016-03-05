@@ -102,7 +102,9 @@ function loadItems(){
                 $realstock = Number($product.attr("data-itemstock")) - Number($currentAmount.html())
             }
             if($realstock < Number($count)){
-                alert("We only have " + $product.attr("data-itemstock") + " of this item in stock");
+                alert("We only have " + $product.attr("data-itemstock") + " of this item in stock"); //TODO: make a better way of displaying this error
+                //You have Number($currentAmount.html()) items in the shopping cart: $currentAmount = $("#shoppingcartitems span[data-itemid=\"" + $itemid +"\"]");
+                //We have Number($product.attr("data-itemstock")) items in stock: $product = $("#products div[data-itemid=\"" + $itemid + "\"]");
                 return;
             }
             $.post("rest/shop/addtocart", {itemID : $itemid, amount: $count}, function(data, textStatus){
