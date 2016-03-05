@@ -21,7 +21,7 @@ public class EasyXML {
 
     //Our top secret shop key! Don't tell anyone!
     public static String SHOP_KEY = "E14ACE44967AC3B0046F0328";
-    public static String BASE_URL = "http://webtek.cs.au.dk/cloud";
+    public static String BASE_URL = "http://localhost:8080/rest/cloud";//"http://webtek.cs.au.dk/cloud";
     //An empty itemDescription. Is more useful, than you may think.
     public static String emptyDescriptionDocument = "<w:document xmlns:w=\"" + XML_NAMESPACE.getURI() + "\">Description</w:document>";
 

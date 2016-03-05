@@ -80,10 +80,10 @@ public class Login extends BaseXMLObject{
                 String customerUN = document.getRootElement().getChild("customerName", EasyXML.XML_NAMESPACE).getText();
                 return response.setResponse("Successfully logged in").setData(new User(customerUN, Integer.parseInt(customerID)));
             } else {
-                return response.setResponse("Username was already taken").setErrorMessage("Username was already taken");
+                return response.setResponse("Could not log in").setErrorMessage("Could not log in");
             }
 
         }
-        return response.setResponse("Could not log in").setErrorMessage("Could not log in");
+        return response.setResponse("Could not log in").setErrorMessage(httpResponse.getErrorMessage());
     }
 }

@@ -21,7 +21,7 @@ public class EasyXML {
 
     //Our top secret shop key! Don't tell anyone!
     public static String SHOP_KEY = "E14ACE44967AC3B0046F0328";
-
+    public static String BASE_URL = "http://localhost:8080/rest/cloud";//"http://webtek.cs.au.dk/cloud";
     //An empty itemDescription. Is more useful, than you may think.
     public static String emptyDescriptionDocument = "<w:document xmlns:w=\"" + XML_NAMESPACE.getURI() + "\">Description</w:document>";
 
@@ -36,7 +36,7 @@ public class EasyXML {
         CreateItem newItem = new CreateItem(itemToCreate);
 
         //send newItem as xml to the correct REST endpoint
-        EasyHTTP createItemEndpoint = new EasyHTTP("http://webtek.cs.au.dk/cloud/createItem");
+        EasyHTTP createItemEndpoint = new EasyHTTP(BASE_URL + "/createItem");
 
         //Check the item to create for validity
         EasyXMLResponse xmlResponse = newItem.constructXML();
@@ -77,7 +77,7 @@ public class EasyXML {
      */
     public static List<Item> listItems(){
         //Set up the connection
-        EasyHTTP listItemsEndpoint = new EasyHTTP("http://webtek.cs.au.dk/cloud/listItems?shopID=96");
+        EasyHTTP listItemsEndpoint = new EasyHTTP(BASE_URL + "/listItems?shopID=96");
         EasyResponse response = listItemsEndpoint.getHTTP();
 
         //Check if the getRequest was successful
@@ -132,7 +132,7 @@ public class EasyXML {
         ModifyItem modifyItem = new ModifyItem(itemToMod);
 
         //Set up the connection
-        EasyHTTP modifyItemEndpoint = new EasyHTTP("http://webtek.cs.au.dk/cloud/modifyItem");
+        EasyHTTP modifyItemEndpoint = new EasyHTTP(BASE_URL + "/modifyItem");
 
         //Check the item for validity
         EasyXMLResponse xmlResponse = modifyItem.constructXML();
@@ -159,7 +159,7 @@ public class EasyXML {
         AdjustItemStock adjustItemStock = new AdjustItemStock(itemID, adjustment);
 
         //Setting up the HTTP connection to the server
-        EasyHTTP modifyItemEndpoint = new EasyHTTP("http://webtek.cs.au.dk/cloud/adjustItemStock");
+        EasyHTTP modifyItemEndpoint = new EasyHTTP(BASE_URL + "/adjustItemStock");
 
         //Attempt to create an adjust XML
         EasyXMLResponse xmlResponse = adjustItemStock.constructXML();
@@ -186,7 +186,7 @@ public class EasyXML {
         CreateCustomer createCustomer = new CreateCustomer(username, password);
 
         //Setting up the HTTP connection to the server
-        EasyHTTP createCustomerEndpoint = new EasyHTTP("http://webtek.cs.au.dk/cloud/createCustomer");
+        EasyHTTP createCustomerEndpoint = new EasyHTTP(BASE_URL + "/createCustomer");
 
         //Attempt to create an createCustomer XML
         EasyXMLResponse xmlResponse = createCustomer.constructXML();
@@ -212,7 +212,7 @@ public class EasyXML {
         Login login = new Login(username, password);
 
         //Setting up the HTTP connection to the server
-        EasyHTTP loginCustomerEndpoint = new EasyHTTP("http://webtek.cs.au.dk/cloud/login");
+        EasyHTTP loginCustomerEndpoint = new EasyHTTP(BASE_URL + "/login");
 
         //Attempt to create an createCustomer XML
         EasyXMLResponse xmlResponse = login.constructXML();
