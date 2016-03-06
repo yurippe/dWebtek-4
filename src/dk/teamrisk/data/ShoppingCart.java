@@ -16,14 +16,25 @@ public class ShoppingCart {
         this.items = new HashMap<>();
     }
 
-    public void addToCart(int ID){addToCart(ID, 1);}
-    public void addToCart(int ID, int count){
+    public boolean addToCart(int ID){return addToCart(ID, 1);}
+    public boolean addToCart(int ID, int count){
         if(this.items.containsKey(ID)){
-            this.items.get(ID).increaseAmount(count);
+            ShoppingCartItem scItem = this.items.get(ID);
+            if(scItem.getItemStock() < scItem.getAmount() + count){
+                return false;
+            }else {
+                scItem.increaseAmount(count);
+                return true;
+            }
         } else {
             ShoppingCartItem newItem = new ShoppingCartItem(ID);
-            newItem.increaseAmount(count);
-            this.items.put(ID, newItem);
+            if(newItem.getItemStock() < count){
+                return false;
+            } else {
+                newItem.increaseAmount(count);
+                this.items.put(ID, newItem);
+                return true;
+            }
         }
     }
 

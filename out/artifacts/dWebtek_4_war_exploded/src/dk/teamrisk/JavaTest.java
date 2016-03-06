@@ -20,7 +20,7 @@ public class JavaTest {
 
         System.out.println(EasyXML.listItems());
 
-        System.out.println(EasyXML.loginCustomer("test", "test").getErrorMessage());
+        System.out.println(EasyXML.loginCustomer("test", "test").getResponse());
 
 
     }

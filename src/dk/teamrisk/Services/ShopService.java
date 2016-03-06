@@ -66,9 +66,15 @@ public class ShopService extends BaseService{
         }
 
         //The user is logged in
-        user.getShoppingCart().addToCart(itemID, amount);
 
-        return generateJsonResponse("ok", "Added " + amount + " of item " + itemID);
+
+        if(user.getShoppingCart().addToCart(itemID, amount)){
+            return generateJsonResponse("ok", "Added " + amount + " of item " + itemID);
+        } else {
+            return generateJsonResponse("error", "Out of stock");
+        }
+
+
     }
 
     @GET

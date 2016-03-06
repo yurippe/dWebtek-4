@@ -35,7 +35,7 @@ public class ShoppingCartItem {
     public void increaseAmount(int count){
         this.amount += count;
     }
-    public int getAmount(){return this.amount;}
+
 
     public JSONObject getJSON(){
         JSONObject item = new JSONObject();
@@ -48,7 +48,15 @@ public class ShoppingCartItem {
         return item;
     }
 
+    public int getItemStock(){
+        return itemStock;
+    }
+
     public int getItemPrice(){
         return this.itemPrice;
+    }
+
+    public int getAmount(){
+        return this.amount;
     }
 }
