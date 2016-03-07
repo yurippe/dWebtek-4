@@ -73,8 +73,6 @@ public class ShopService extends BaseService{
         } else {
             return generateJsonResponse("error", "Out of stock");
         }
-
-
     }
 
     @GET
@@ -89,5 +87,4 @@ public class ShopService extends BaseService{
 
         return generateJsonResponse("ok", user.getShoppingCart().getShoppingCartJSON());
     }
-
 }

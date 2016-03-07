@@ -52,10 +52,8 @@ public class ShoppingCart {
             totalprice += cartItem.getAmount() * cartItem.getItemPrice();
         }
         JSONObject shoppingCartData = new JSONObject();
-        JSONObject data = new JSONObject();
         shoppingCartData.put("items", itemlist);
-        data.put("sum", totalprice);
-        shoppingCartData.put("data", data);
+        shoppingCartData.put("sum", totalprice);
         return shoppingCartData;
     }
 

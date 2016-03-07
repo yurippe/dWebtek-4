@@ -14,11 +14,9 @@ import javax.ws.rs.core.Context;
 @Path("user")
 public class UserService extends BaseService{
 
-
     public UserService(@Context HttpServletRequest servletRequest) {
         super(servletRequest);
     }
-
 
     @GET
     @Path("user")
@@ -41,8 +39,8 @@ public class UserService extends BaseService{
     @Consumes("application/x-www-form-urlencoded")
     @Produces("text/json")
     public String loginUser(@FormParam("username") String username, @FormParam("password") String password) {
-
-        if(username == null || username.length() < 3 || password == null || password.length() < 3){
+        if(username == null || username.length() < 3 ||
+                password == null || password.length() < 3){
             return generateJsonResponse("error", "bad request");
         }
 
@@ -54,7 +52,6 @@ public class UserService extends BaseService{
         } else {
             return generateJsonResponse("error", response.getErrorMessage());
         }
-
     }
 
     @GET
@@ -81,7 +78,5 @@ public class UserService extends BaseService{
         } else {
             return generateJsonResponse("error", response.getErrorMessage());
         }
-
     }
-
 }

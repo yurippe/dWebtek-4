@@ -8,9 +8,9 @@ var $itemdata = {};
  * @param item
  * @returns {string|*}
  */
-function createProductHTML(item){
+function createProductHTML(item) {
 
-    $prodhtml  = "<div class=\"product\"><div><a class=\"imgLink\" data-itemid=\"" + item.itemID + "\"><img src=\"";
+    $prodhtml = "<div class=\"product\"><div><a class=\"imgLink\" data-itemid=\"" + item.itemID + "\"><img src=\"";
     $prodhtml += item.itemURL + "\" alt=\"\" class=\"product_image\"></a>";
     $prodhtml += "<p><a class=\"imgLink\" data-itemid=\"" + item.itemID + "\">";
     $prodhtml += item.itemName + "</a><br>" + item.itemPrice + ",-<br /><input type=\"number\" value=\"1\" ";
@@ -24,44 +24,41 @@ function createProductHTML(item){
     return $prodhtml;
 }
 
-function loadItems(){
+function loadItems() {
 
+    $.get("rest/shop/items", null, function (data, textStatus) {
 
-    $.get("rest/shop/items", null, function(data, textStatus) {
-
-        if(data.status === "error"){
+        if (data.status === "error") {
             $("#products").html("<h1>an error occured</h1>");
             return;
         }
 
         //$("#products").html("<table></table>");
         $("#products").html("");
-        $.each(data.data, function(index, element){
+        $.each(data.data, function (index, element) {
 
             $tablerow = createProductHTML(element);
-            $itemdata[String(element.itemID)] = {name: element.itemName,    price: Number(element.itemPrice),
-                                                stock: Number(element.itemStock),   pictureurl: element.itemURL};
+            $itemdata[String(element.itemID)] = {
+                name: element.itemName, price: Number(element.itemPrice),
+                stock: Number(element.itemStock), pictureurl: element.itemURL
+            };
             $("#products").append($tablerow);
-        })
+        });
 
-        $("button.addToCart").click(function(){
+        $("button.addToCart").click(function () {
             addToCart(this);
         });
 
         $("a.imgLink").click(function () {
             focusProduct($(this).attr("data-itemid"));
         });
-
     }, "json");
-
-
 }
 
 function isLoggedIn() {
-
-    $.get("rest/user/user", null, function(data, textStatus){
+    $.get("rest/user/user", null, function (data, textStatus) {
         //User is not logged in, present the login form:
-        if(data.status === "error"){
+        if (data.status === "error") {
             $("#login").css("display", "");
             $("#loggedin").css("display", "none");
             $("#welcomeback").css("display", "none");
@@ -78,7 +75,5 @@ function isLoggedIn() {
 
             updateCart();
         }
-
     }, "json");
-
 }
