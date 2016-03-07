@@ -16,7 +16,8 @@ function createProductHTML(item){
     $prodhtml += item.itemName + "</a><br>" + item.itemPrice + ",-<br /><input type=\"number\" value=\"1\" ";
     $prodhtml += "class=\"noOfItemsForm\" data-itemid=\"" + item.itemID + "\" > ";
     $prodhtml += "<button type=\"button\" class=\"addToCart\" data-itemid=\"" + item.itemID + "\"";
-    $prodhtml += ((Number(item.itemStock) <= 0) ? "disabled" : "") + ">add to cart</button>";
+    $prodhtml += ((Number(item.itemStock) <= 0) ? "disabled" : "") + ">";
+    $prodhtml += ((Number(item.itemStock) <= 0) ? "out of stock" : "add to cart") + "</button>";
     $prodhtml += "<br />(" + item.itemStock + " in stock)";
     $prodhtml += "</p></div>" + item.itemDescription + "</div>";
 
