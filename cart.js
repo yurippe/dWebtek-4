@@ -8,7 +8,6 @@ function createCartHTML(element) {
     return "<tr><td>" + element.itemName + " (" + element.itemID + ")</td><td>" +
         element.itemPrice + ",- each</td><td>amount: " + "<span data-itemid=\"" + element.itemID + "\">" +
         element.amount + "</span></td></tr>";
-
 }
 
 function updateCart() {
@@ -73,4 +72,19 @@ function addToCart(buttonClicked) {
     }, "json");
 }
 
-//TODO: removeFromCart
+function removeFromCart(buttonClicked) {
+    $itemid = $(buttonClicked).attr("data-itemid");
+    $count = Number($("#shoppingcartitems input[data-itemid=\"" + $itemid + "\"]").val());
+
+    if(count < 0){
+        alert("Sir, this is called addition, not subtraction...");
+    }
+
+    $.post("rest/shop/removefromcart", {itemID: $itemid, amount: $count}, function (data) {
+        if(data.status === "ok"){
+            updateCart();
+        } else {
+            alert(data.message);
+        }
+    }, "json");
+}

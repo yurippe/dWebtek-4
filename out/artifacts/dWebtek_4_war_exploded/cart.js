@@ -46,18 +46,17 @@ function addToCart(buttonClicked) {
         return;
     }
 
-    if (!($product === undefined)) {
-        //we already have some of this product in the shopping cart
-        if ($count + $product.amount <= $itemdata[$itemid].stock) {
+    if ($product === undefined) {
+        //Just need to make sure that $count is <= stock
+        if ($count <= $itemdata[$itemid].stock) {
             //all good
         } else {
             alert("We do not have that many of that item in stock");
             return;
         }
-
     } else {
-        //Just need to make sure that $count is <= stock
-        if ($count <= $itemdata[$itemid].stock) {
+        //we already have some of this product in the shopping cart
+        if ($count + $product.amount <= $itemdata[$itemid].stock) {
             //all good
         } else {
             alert("We do not have that many of that item in stock");
@@ -66,7 +65,6 @@ function addToCart(buttonClicked) {
     }
 
     $.post("rest/shop/addtocart", {itemID: $itemid, amount: $count}, function (data, textStatus) {
-
         if (data.status === "ok") {
             updateCart();
         } else {
@@ -76,3 +74,6 @@ function addToCart(buttonClicked) {
 }
 
 //TODO: removeFromCart
+function removeFromCart(buttonClicked) {
+
+}

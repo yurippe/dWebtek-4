@@ -23,7 +23,7 @@ public class ShoppingCart {
             if(scItem.getItemStock() < scItem.getAmount() + count){
                 return false;
             }else {
-                scItem.increaseAmount(count);
+                scItem.changeAmount(count);
                 return true;
             }
         } else {
@@ -31,10 +31,24 @@ public class ShoppingCart {
             if(newItem.getItemStock() < count){
                 return false;
             } else {
-                newItem.increaseAmount(count);
+                newItem.changeAmount(count);
                 this.items.put(ID, newItem);
                 return true;
             }
+        }
+    }
+
+    public boolean removeFromCart(int ID, int count){
+        if(this.items.containsKey(ID) && count > 0){
+            ShoppingCartItem scItem = this.items.get(ID);
+            if(scItem.getAmount() - count <= 0) {
+                this.items.remove(ID);
+            } else {
+                scItem.changeAmount(-count);
+            }
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -56,6 +70,4 @@ public class ShoppingCart {
         shoppingCartData.put("sum", totalprice);
         return shoppingCartData;
     }
-
-
 }

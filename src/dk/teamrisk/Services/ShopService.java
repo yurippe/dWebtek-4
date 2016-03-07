@@ -87,4 +87,26 @@ public class ShopService extends BaseService{
 
         return generateJsonResponse("ok", user.getShoppingCart().getShoppingCartJSON());
     }
+
+    @POST
+    @Path("removefromcart")
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces("text/json")
+    public String removeFromCart(@FormParam("itemID") int itemID, @FormParam("amount") int amount){
+
+        if(itemID <= 0){
+            return generateJsonResponse("error", "bad request");
+        }
+
+        User user = getUser();
+        if(user == null){
+            return generateJsonResponse("error", "Good going, trying to remove something you don't have");
+        }
+
+        if(user.getShoppingCart().removeFromCart(itemID, amount)){
+            return generateJsonResponse("ok", "Removed " + amount + " of item " + itemID);
+        } else {
+            return generateJsonResponse("error", "shit happened?");
+        }
+    }
 }
