@@ -6,6 +6,10 @@
   width: 20pt;
 }
 
+.noOfItemsToRemove {
+  width: 20pt;
+}
+
 body {
   width: 80%;
   margin: auto;

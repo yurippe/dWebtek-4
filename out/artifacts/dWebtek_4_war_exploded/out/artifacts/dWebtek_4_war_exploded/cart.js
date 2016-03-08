@@ -84,7 +84,7 @@ function addToCart(buttonClicked) {
 
 function removeFromCart(buttonClicked) {
     var $itemid = $(buttonClicked).attr("data-itemid");
-    var $count = $("#shoppingcartitems").find("input[class=\"noItemsToRemove\"]").val();
+    var $count = Number($("#shoppingcartitems input[data-itemid=\"" + $itemid + "\"]").val());
 
     if(count < 0){
         alert("Sir, this is called addition, not subtraction...");
