@@ -5,9 +5,15 @@
 var $cart = {items: {}, sum: 0};
 
 function createCartHTML(element) {
-    return "<tr><td>" + element.itemName + " (" + element.itemID + ")</td><td>" +
-        element.itemPrice + ",- each</td><td>amount: " + "<span data-itemid=\"" + element.itemID + "\">" +
-        element.amount + "</span></td></tr>";
+    var $carthtml = "<tr><td>";
+    $carthtml += element.itemName + " (" + element.itemID + ")</td><td>";
+    $carthtml += element.itemPrice + ",- each</td><td>amount: ";
+    $carthtml += "<span data-itemid=\"" + element.itemID + "\">" + element.amount + "</span>";
+    $carthtml += "<input type=\"number\" value=\"1\" class=\"noItemsToRemove\" data-itemid=\"" + element.itemID + "\" />";
+    $carthtml += "<button type=\"button\" class=\"removeFromCart\" data-itemid=\"" + element.itemID + "\" > Remove from cart </button>" ;
+    $carthtml += "</td></tr>";
+
+    return $carthtml;
 }
 
 function updateCart() {
@@ -26,6 +32,10 @@ function updateCart() {
                     amount: Number(element.amount),
                     price: Number(element.itemPrice)
                 };
+            });
+
+            $("button.removeFromCart").click(function () {
+                removeFromCart(this);
             });
 
             $("#shoppingcart span.totalPrice").html(data.data.sum);
@@ -73,8 +83,8 @@ function addToCart(buttonClicked) {
 }
 
 function removeFromCart(buttonClicked) {
-    $itemid = $(buttonClicked).attr("data-itemid");
-    $count = Number($("#shoppingcartitems input[data-itemid=\"" + $itemid + "\"]").val());
+    var $itemid = $(buttonClicked).attr("data-itemid");
+    var $count = Number($("#shoppingcartitems input[data-itemid=\"" + $itemid + "\"]").val());
 
     if(count < 0){
         alert("Sir, this is called addition, not subtraction...");

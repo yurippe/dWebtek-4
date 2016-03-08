@@ -10,7 +10,7 @@ var $itemdata = {};
  */
 function createProductHTML(item) {
 
-    $prodhtml = "<div class=\"product\"><div><a class=\"imgLink\" data-itemid=\"" + item.itemID + "\"><img src=\"";
+    var $prodhtml = "<div class=\"product\"><div><a class=\"imgLink\" data-itemid=\"" + item.itemID + "\"><img src=\"";
     $prodhtml += item.itemURL + "\" alt=\"\" class=\"product_image\"></a>";
     $prodhtml += "<p><a class=\"imgLink\" data-itemid=\"" + item.itemID + "\">";
     $prodhtml += item.itemName + "</a><br>" + item.itemPrice + ",-<br /><input type=\"number\" value=\"1\" ";

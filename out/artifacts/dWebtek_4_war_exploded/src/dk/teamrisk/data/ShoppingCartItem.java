@@ -32,10 +32,9 @@ public class ShoppingCartItem {
         this.itemStock = item.getItemStock();
     }
 
-    public void increaseAmount(int count){
+    public void changeAmount(int count){
         this.amount += count;
     }
-
 
     public JSONObject getJSON(){
         JSONObject item = new JSONObject();

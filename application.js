@@ -3,7 +3,6 @@
  */
 
 $(function () {
-
     //Set up REST calls for signup button
     $("#signupbutton").click(function () {
         $uname = $("#login input[name=\"username\"]").val();
