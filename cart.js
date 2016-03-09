@@ -41,16 +41,20 @@ function updateCart() {
             $cart.sum = Number(data.data.sum);
 
             $("button.buybutton").click(function () {
-                sellItems();
+                sellItems(this);
             });
         }
     }, "json");
 }
 
-function sellItems() {
+function sellItems(buttonClicked) {
+    buttonClicked.value = "Selling... Please waaaaiiiiit...";
+
     $.post("rest/shop/sellitem", function(data) {
         alert(data.message);
     });
+
+    buttonClicked.value = "Buy Items";
 }
 
 function addToCart(buttonClicked) {
