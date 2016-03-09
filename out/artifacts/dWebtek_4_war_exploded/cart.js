@@ -9,7 +9,7 @@ function createCartHTML(element) {
     $carthtml += element.itemName + " (" + element.itemID + ")</td><td>";
     $carthtml += element.itemPrice + ",- each</td><td>amount: ";
     $carthtml += "<span data-itemid=\"" + element.itemID + "\">" + element.amount + "</span>";
-    $carthtml += "<input type=\"number\" value=\"1\" class=\"noItemsToRemove\" data-itemid=\"" + element.itemID + "\" />";
+    $carthtml += "<input type=\"number\" value=\"1\" class=\"noOfItemsToRemove\" data-itemid=\"" + element.itemID + "\" />";
     $carthtml += "<button type=\"button\" class=\"removeFromCart\" data-itemid=\"" + element.itemID + "\" > Remove from cart </button>" ;
     $carthtml += "</td></tr>";
 
@@ -17,7 +17,6 @@ function createCartHTML(element) {
 }
 
 function updateCart() {
-
     $.get("rest/shop/getshoppingcart", null, function (data, textStatus) {
 
         $("#shoppingcartitems").html("<table></table>");
@@ -40,8 +39,28 @@ function updateCart() {
 
             $("#shoppingcart span.totalPrice").html(data.data.sum);
             $cart.sum = Number(data.data.sum);
+
+            $("button.buybutton").unbind('click').click(function () {
+                sellItems(this);
+            });
         }
     }, "json");
+}
+
+function sellItems(buttonClicked) {
+
+    $("button.buybutton").unbind('click');
+    $(buttonClicked).text("Selling...")
+
+
+    $.post("rest/shop/sellitem", function(data) {
+        alert(data.message);
+        $(buttonClicked).text("Buy Items")
+        updateCart();
+    });
+
+
+
 }
 
 function addToCart(buttonClicked) {

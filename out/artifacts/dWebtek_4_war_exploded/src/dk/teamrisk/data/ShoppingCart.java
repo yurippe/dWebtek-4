@@ -4,11 +4,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.function.Consumer;
 
 /**
  * Created by Kristian on 3/3/2016.
  */
-public class ShoppingCart {
+public class ShoppingCart implements Iterable<ShoppingCartItem> {
     //              itemID    count
     private HashMap<Integer, ShoppingCartItem> items;
 
@@ -69,5 +71,10 @@ public class ShoppingCart {
         shoppingCartData.put("items", itemlist);
         shoppingCartData.put("sum", totalprice);
         return shoppingCartData;
+    }
+
+    @Override
+    public Iterator<ShoppingCartItem> iterator() {
+        return items.values().iterator();
     }
 }
