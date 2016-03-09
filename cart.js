@@ -17,7 +17,6 @@ function createCartHTML(element) {
 }
 
 function updateCart() {
-
     $.get("rest/shop/getshoppingcart", null, function (data, textStatus) {
 
         $("#shoppingcartitems").html("<table></table>");
@@ -40,8 +39,18 @@ function updateCart() {
 
             $("#shoppingcart span.totalPrice").html(data.data.sum);
             $cart.sum = Number(data.data.sum);
+
+            $("button.buybutton").click(function () {
+                sellItems();
+            });
         }
     }, "json");
+}
+
+function sellItems() {
+    $.post("rest/shop/sellitem", function(data) {
+        alert(data.message);
+    });
 }
 
 function addToCart(buttonClicked) {
