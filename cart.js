@@ -48,13 +48,19 @@ function updateCart() {
 }
 
 function sellItems(buttonClicked) {
-    buttonClicked.value = "Selling... Please waaaaiiiiit...";
+    buttonClicked.value = "Selling...";
+    $("button.buybutton").click(function () {
+        alert("Selling... Please waaaaaiiiit...")
+    })
 
     $.post("rest/shop/sellitem", function(data) {
         alert(data.message);
     });
 
     buttonClicked.value = "Buy Items";
+    $("button.buybutton").click(function () {
+        sellItems(this);
+    })
 }
 
 function addToCart(buttonClicked) {
