@@ -9,7 +9,7 @@ function createCartHTML(element) {
     $carthtml += element.itemName + " (" + element.itemID + ")</td><td>";
     $carthtml += element.itemPrice + ",- each</td><td>amount: ";
     $carthtml += "<span data-itemid=\"" + element.itemID + "\">" + element.amount + "</span>";
-    $carthtml += "<input type=\"number\" value=\"1\" class=\"noItemsToRemove\" data-itemid=\"" + element.itemID + "\" />";
+    $carthtml += "<input type=\"number\" value=\"1\" class=\"noOfItemsToRemove\" data-itemid=\"" + element.itemID + "\" />";
     $carthtml += "<button type=\"button\" class=\"removeFromCart\" data-itemid=\"" + element.itemID + "\" > Remove from cart </button>" ;
     $carthtml += "</td></tr>";
 
