@@ -45,6 +45,7 @@ button:hover {
 }
 
 input {
+  margin: 0.1em;
   background-color: #D0D0D0;
   border: 1px solid #D0D0D0;
   border-radius: 3px;
@@ -73,6 +74,11 @@ input:hover {
   margin: 0.4em;
   border: 3px solid #FF9F27;
   border-radius: 10px;
+}
+
+#shoppingcart input {
+  margin-left: 2em;
+  margin-right: 0.2em;
 }
 
 img.product_image {
