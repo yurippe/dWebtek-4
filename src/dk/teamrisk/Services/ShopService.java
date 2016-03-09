@@ -125,11 +125,12 @@ public class ShopService extends BaseService{
         }
 
         for(ShoppingCartItem i : user.getShoppingCart()){
-            EasyXMLResponse response = EasyXML.sellItems(i.getItemID(), user.getID());
-            if(!response.wasSuccessful()){
+            EasyXMLResponse response = EasyXML.sellItems(i.getItemID(), user.getID(), i.getAmount());
+            if(!response.wasSuccessful())
                 return generateJsonResponse("error", "sell failed: " + response.getResponse());
-            }
+            user.getShoppingCart().removeFromCart(i.getItemID(), i.getAmount());
         }
+
         return generateJsonResponse("ok", "items were all sold");
     }
 }

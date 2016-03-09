@@ -32,26 +32,71 @@ header {
   }
 }
 
+button {
+  margin-top: 0.2em;
+  color: white;
+  text-decoration: none;
+  background-color: #101010;
+  border: 3px solid #101010;
+  border-radius: 3px;
+}
+
+button:hover {
+  background-color: #303030;
+  border: 3px solid #303030;
+  transition-duration: 0.1s;
+}
+
+input {
+  margin: 0.1em;
+  background-color: #D0D0D0;
+  border: 1px solid #D0D0D0;
+  border-radius: 3px;
+  transition-duration: 0.1s;
+}
+
+input:hover {
+  background-color: #E0E0E0;
+  border: 1px solid #E0E0E0;
+  border-radius: 3px;
+  transition-duration: 0.1s;
+}
+
 #banner {
   width: 60%;
   padding-left: 20%;
   padding-top: 3em;
 }
 
+#shoppingcart {
+  background-color: #FF9F27;
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 1em;
+  margin: 0.4em;
+  border: 3px solid #FF9F27;
+  border-radius: 10px;
+
+  input {
+    margin-left: 2em;
+    margin-right: 0.2em;
+  }
+}
+
 img.product_image {
   height: 150px;
   width: auto;
-  padding-top: 1em;
+  padding: 0.5em;
   transition: 0.2s;
+  border: 3px solid #101010;
+  border-radius: 10px;
 }
 
 img.product_image:hover {
+  border: 3px solid #303030;
   transform: scale(1.1);
   transition: 0.2s;
-}
-
-ul.teamlist {
-  margin-top: -15px;
 }
 
 #products {
@@ -81,8 +126,6 @@ ul.teamlist {
       flex-direction: column;
       text-align: center;
       width: 100%;
-      border: 3px solid gray;
-      border-radius: 10px;
 
       p {
         text-align: center;
@@ -110,9 +153,7 @@ ul.teamlist {
     div.product:nth-child(4n) {
       margin: 1% 1% 1% 1%;
     }
-
   }
-
 }
 
 div.footerspace {
@@ -164,12 +205,8 @@ footer {
     max-height: 100%;
     padding-top: 5px;
   }
-}
 
-#shoppingcart {
-  background-color: #ffe87c;
-  position: fixed;
-  top: 0;
-  right: 0;
-  padding: 1em;
+  ul.teamlist {
+    margin-top: -15px;
+  }
 }

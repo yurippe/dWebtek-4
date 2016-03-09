@@ -40,7 +40,7 @@ function updateCart() {
             $("#shoppingcart span.totalPrice").html(data.data.sum);
             $cart.sum = Number(data.data.sum);
 
-            $("button.buybutton").click(function () {
+            $("button.buybutton").unbind('click').click(function () {
                 sellItems(this);
             });
         }
@@ -48,17 +48,19 @@ function updateCart() {
 }
 
 function sellItems(buttonClicked) {
-    buttonClicked.value = "Selling...";
-    $("button.buybutton").click(function () {
-        alert("Selling... Please waaaaaiiiit...")
-    })
+
+    $("button.buybutton").unbind('click');
+    $(buttonClicked).text("Selling...")
+
 
     $.post("rest/shop/sellitem", function(data) {
         alert(data.message);
+        $(buttonClicked).text("Buy Items")
+        updateCart();
     });
 
-    buttonClicked.value = "Buy Items";
-    updateCart();
+
+
 }
 
 function addToCart(buttonClicked) {

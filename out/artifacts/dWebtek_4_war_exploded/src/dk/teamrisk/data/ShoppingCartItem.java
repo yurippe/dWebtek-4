@@ -7,29 +7,17 @@ import org.json.JSONObject;
 /**
  * Created by Kristian on 3/3/2016.
  */
-public class ShoppingCartItem {
+public class ShoppingCartItem extends Item {
 
-    private int itemID;
-    private String itemName;
-    private String itemURL;
-    private int itemPrice;
-    private int itemStock;
-    private String itemDescription;
-
-    //how many in the shopping cart;
     private int amount;
 
     public ShoppingCartItem(int itemID){
-        this(EasyXML.getItem(itemID));
+        this(itemID, 1);
     }
 
-    private ShoppingCartItem(Item item){
-        this.itemID = item.getItemID();
-        this.itemName = item.getItemName();
-        this.itemURL = item.getItemURL();
-        this.itemPrice = item.getItemPrice();
-        this.itemDescription = item.getItemDescription();
-        this.itemStock = item.getItemStock();
+    public ShoppingCartItem(int itemID, int amount){
+        super(EasyXML.getItem(itemID));
+        this.amount = amount;
     }
 
     public void changeAmount(int count){
@@ -38,21 +26,13 @@ public class ShoppingCartItem {
 
     public JSONObject getJSON(){
         JSONObject item = new JSONObject();
-        item.put("itemID", itemID);
-        item.put("itemName", itemName);
-        item.put("itemURL", itemURL);
-        item.put("itemPrice", itemPrice);
-        item.put("itemStock", itemStock);
+        item.put("itemID", this.getItemID());
+        item.put("itemName", this.getItemName());
+        item.put("itemURL", this.getItemURL());
+        item.put("itemPrice", this.getItemPrice());
+        item.put("itemStock", this.getItemStock());
         item.put("amount", amount);
         return item;
-    }
-
-    public int getItemStock(){
-        return itemStock;
-    }
-
-    public int getItemPrice(){
-        return this.itemPrice;
     }
 
     public int getAmount(){

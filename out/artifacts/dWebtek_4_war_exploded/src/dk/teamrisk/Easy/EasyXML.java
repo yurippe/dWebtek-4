@@ -131,14 +131,14 @@ public class EasyXML {
         //A lot of the work has been delegated to a ModifyItem object
         ModifyItem modifyItem = new ModifyItem(itemToMod);
 
-        //Set up the connection
-        EasyHTTP modifyItemEndpoint = new EasyHTTP(BASE_URL + "/modifyItem");
-
         //Check the item for validity
         EasyXMLResponse xmlResponse = modifyItem.constructXML();
         if(!(xmlResponse.wasSuccessful())){
             return xmlResponse;
         }
+
+        //Set up the connection
+        EasyHTTP modifyItemEndpoint = new EasyHTTP(BASE_URL + "/modifyItem");
 
         //Send the modifyItem request
         EasyResponse response = modifyItemEndpoint.postHTTP(xmlResponse.getResponse());
@@ -158,14 +158,14 @@ public class EasyXML {
 
         AdjustItemStock adjustItemStock = new AdjustItemStock(itemID, adjustment);
 
-        //Setting up the HTTP connection to the server
-        EasyHTTP modifyItemEndpoint = new EasyHTTP(BASE_URL + "/adjustItemStock");
-
         //Attempt to create an adjust XML
         EasyXMLResponse xmlResponse = adjustItemStock.constructXML();
         if(!(xmlResponse.wasSuccessful())){
             return xmlResponse;
         }
+
+        //Setting up the HTTP connection to the server
+        EasyHTTP modifyItemEndpoint = new EasyHTTP(BASE_URL + "/adjustItemStock");
 
         //Sending the adjustment
         EasyResponse response = modifyItemEndpoint.postHTTP(xmlResponse.getResponse());
@@ -174,11 +174,36 @@ public class EasyXML {
         return feedback.fromEasyResponse(response);
     }
 
+    public static EasyXMLResponse sellItems(int itemID, int customerID){
+        return sellItems(itemID, customerID, 1);
+    }
+
+    public static EasyXMLResponse sellItems(int itemID, int customerID, int amount){
+
+        EasyXMLResponse feedback = new EasyXMLResponse();
+
+        SellItems sellItems = new SellItems(itemID, customerID, amount);
+
+
+        //Attempt to create a sellItem XML
+        EasyXMLResponse xmlResponse = sellItems.constructXML();
+        if(!xmlResponse.wasSuccessful()){
+            return xmlResponse;
+        }
+
+        //Setting up the HTTP connection to the server
+        EasyHTTP sellItemEndpoint = new EasyHTTP(BASE_URL + "/sellItems");
+
+        //Upload selling
+        EasyResponse response = sellItemEndpoint.postHTTP(xmlResponse.getResponse());
+
+        //Return our possible happiness...
+        return feedback.fromEasyResponse(response);
+    }
 
     /**
      * Create customer
      */
-
     public static EasyXMLResponse createCustomer(String username, String password){
 
         EasyXMLResponse feedback = new EasyXMLResponse();
