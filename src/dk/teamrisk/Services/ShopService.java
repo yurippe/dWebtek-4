@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 @Path("shop")
-public class ShopService extends BaseService{
+public class ShopService extends BaseService {
 
 
     public ShopService(@Context HttpServletRequest servletRequest) {
@@ -39,7 +39,7 @@ public class ShopService extends BaseService{
         List<Item> items = EasyXML.listItems();
         JSONArray jsonItems = new JSONArray();
 
-        for(Item i : items){
+        for (Item i : items) {
             JSONObject jsonItem = new JSONObject();
             jsonItem.put("itemID", i.getItemID());
             jsonItem.put("itemName", i.getItemName());
@@ -59,21 +59,21 @@ public class ShopService extends BaseService{
     @Path("addtocart")
     @Consumes("application/x-www-form-urlencoded")
     @Produces("text/json")
-    public String addToCart(@FormParam("itemID") int itemID, @FormParam("amount") int amount){
+    public String addToCart(@FormParam("itemID") int itemID, @FormParam("amount") int amount) {
 
-        if(itemID <= 0){
+        if (itemID <= 0) {
             return generateJsonResponse("error", "bad request");
         }
 
         User user = getUser();
-        if(user == null){
+        if (user == null) {
             return generateJsonResponse("error", "You need to log in before you can add items to the cart");
         }
 
         //The user is logged in
 
 
-        if(user.getShoppingCart().addToCart(itemID, amount)){
+        if (user.getShoppingCart().addToCart(itemID, amount)) {
             return generateJsonResponse("ok", "Added " + amount + " of item " + itemID);
         } else {
             return generateJsonResponse("error", "Out of stock");
@@ -83,10 +83,10 @@ public class ShopService extends BaseService{
     @GET
     @Path("getshoppingcart")
     @Produces("text/json")
-    public String getShoppingCart(){
+    public String getShoppingCart() {
         User user = getUser();
 
-        if(user == null) {
+        if (user == null) {
             return generateJsonResponse("error", "Not logged in");
         }
 
@@ -97,18 +97,18 @@ public class ShopService extends BaseService{
     @Path("removefromcart")
     @Consumes("application/x-www-form-urlencoded")
     @Produces("text/json")
-    public String removeFromCart(@FormParam("itemID") int itemID, @FormParam("amount") int amount){
+    public String removeFromCart(@FormParam("itemID") int itemID, @FormParam("amount") int amount) {
 
-        if(itemID <= 0){
+        if (itemID <= 0) {
             return generateJsonResponse("error", "bad request");
         }
 
         User user = getUser();
-        if(user == null){
+        if (user == null) {
             return generateJsonResponse("error", "Good going, trying to remove something you don't have");
         }
 
-        if(user.getShoppingCart().removeFromCart(itemID, amount)){
+        if (user.getShoppingCart().removeFromCart(itemID, amount)) {
             return generateJsonResponse("ok", "Removed " + amount + " of item " + itemID);
         } else {
             return generateJsonResponse("error", "shit happened?");
@@ -123,25 +123,26 @@ public class ShopService extends BaseService{
         User user = getUser();
         ShoppingCart shoppingCart = user.getShoppingCart();
 
-        if(user == null) {
+        if (user == null) {
             return generateJsonResponse("error", "Not logged in");
         }
 
         //Test, that everything is in stock
         Map<Integer, Item> items = EasyXML.mapItems();
-        for(ShoppingCartItem i : shoppingCart) {
+        for (ShoppingCartItem i : shoppingCart) {
             int amountInStock = items.get(i.getItemID()).getItemStock();
-            if(i.getAmount() > amountInStock){
+            if (i.getAmount() > amountInStock) {
                 return generateJsonResponse("error", "item" + i.getItemID() + "is out of stock");
             }
         }
 
         //Sell Items
-        for(ShoppingCartItem i : shoppingCart){
+        for (ShoppingCartItem i : shoppingCart) {
             EasyXMLResponse response = EasyXML.sellItems(i.getItemID(), user.getID());
-            if(!response.wasSuccessful()){
+            if (!response.wasSuccessful()) {
                 return generateJsonResponse("error", "sell failed: " + response.getResponse());
-            user.getShoppingCart().removeFromCart(i.getItemID(), i.getAmount());
+                user.getShoppingCart().removeFromCart(i.getItemID(), i.getAmount());
+            }
         }
 
         return generateJsonResponse("ok", "items were all sold");
