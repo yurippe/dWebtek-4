@@ -58,9 +58,7 @@ function sellItems(buttonClicked) {
     });
 
     buttonClicked.value = "Buy Items";
-    $("button.buybutton").click(function () {
-        sellItems(this);
-    })
+    updateCart();
 }
 
 function addToCart(buttonClicked) {
