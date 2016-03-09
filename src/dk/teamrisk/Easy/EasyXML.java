@@ -10,7 +10,9 @@ import org.jdom2.input.SAXBuilder;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * One object to take care of everything XML!
@@ -96,6 +98,23 @@ public class EasyXML {
         //Convert to a list and return
         return items.getList();
     }
+
+    /**
+     * Downloads all items from the cloud and makes an ArrayList of said items
+     * @return A list of all items in our shop
+     */
+    public static Map<Integer, Item> mapItems(){
+        List<Item> list = listItems();
+
+        HashMap<Integer, Item> map = new HashMap<>();
+
+        for(Item i : list){
+            map.put(i.getItemID(), i);
+        }
+
+        return map;
+    }
+
 
     /**
      * Gets an item from the cloud based on its ID

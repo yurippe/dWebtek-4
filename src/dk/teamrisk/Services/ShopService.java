@@ -6,6 +6,7 @@ import dk.teamrisk.Easy.EasyXML;
 import dk.teamrisk.Easy.EasyXMLResponse;
 import dk.teamrisk.XML.BaseXMLObject;
 import dk.teamrisk.XML.Items;
+import dk.teamrisk.data.ShoppingCart;
 import dk.teamrisk.data.ShoppingCartItem;
 import dk.teamrisk.data.User;
 import dk.teamrisk.XML.Item;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import java.util.List;
+import java.util.Map;
 
 @Path("shop")
 public class ShopService extends BaseService{
@@ -119,12 +121,23 @@ public class ShopService extends BaseService{
     @Produces("text/json")
     public String sellItemsInCart() {
         User user = getUser();
+        ShoppingCart shoppingCart = user.getShoppingCart();
 
         if(user == null) {
             return generateJsonResponse("error", "Not logged in");
         }
 
-        for(ShoppingCartItem i : user.getShoppingCart()){
+        //Test, that everything is in stock
+        Map<Integer, Item> items = EasyXML.mapItems();
+        for(ShoppingCartItem i : shoppingCart) {
+            int amountInStock = items.get(i.getItemID()).getItemStock();
+            if(i.getAmount() > amountInStock){
+                return generateJsonResponse("error", "item" + i.getItemID() + "is out of stock");
+            }
+        }
+
+        //Sell Items
+        for(ShoppingCartItem i : shoppingCart){
             EasyXMLResponse response = EasyXML.sellItems(i.getItemID(), user.getID());
             if(!response.wasSuccessful()){
                 return generateJsonResponse("error", "sell failed: " + response.getResponse());

@@ -77,4 +77,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem> {
     public Iterator<ShoppingCartItem> iterator() {
         return items.values().iterator();
     }
+
+    public ShoppingCartItem getItem(int itemID){
+        return items.get(itemID);
+    }
 }
