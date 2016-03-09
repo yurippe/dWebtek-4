@@ -4,6 +4,8 @@ package dk.teamrisk.Services;
 import dk.teamrisk.Easy.DocumentRenderer;
 import dk.teamrisk.Easy.EasyXML;
 import dk.teamrisk.XML.BaseXMLObject;
+import dk.teamrisk.XML.Items;
+import dk.teamrisk.data.ShoppingCartItem;
 import dk.teamrisk.data.User;
 import dk.teamrisk.XML.Item;
 import org.json.JSONArray;
@@ -107,6 +109,22 @@ public class ShopService extends BaseService{
             return generateJsonResponse("ok", "Removed " + amount + " of item " + itemID);
         } else {
             return generateJsonResponse("error", "shit happened?");
+        }
+    }
+
+    @POST
+    @Path("buy")
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces("text/json")
+    public String sellItemsInCart() {
+        User user = getUser();
+
+        if(user == null) {
+            return generateJsonResponse("error", "Not logged in");
+        }
+
+        for(ShoppingCartItem i : user.getShoppingCart()){
+            
         }
     }
 }

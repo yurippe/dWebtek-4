@@ -46,6 +46,19 @@ public class Item extends BaseXMLObject {
     }
 
     /**
+     *
+     * @param item
+     */
+    public Item(Item item){
+        this.itemID = item.getItemID();
+        this.itemName = item.getItemName();
+        this.itemURL = item.getItemURL();
+        this.itemPrice = item.getItemPrice();
+        this.itemDescription = item.getItemDescription();
+        this.itemStock = item.getItemStock();
+    }
+
+    /**
      * Creates an EasyXMLResponse object, which represents the welformedness of this item.
      * @return EasyXMLResponse and with it hopefully happiness.
      */
