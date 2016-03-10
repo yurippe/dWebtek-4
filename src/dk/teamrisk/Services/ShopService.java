@@ -142,8 +142,8 @@ public class ShopService extends BaseService {
             if (!response.wasSuccessful()) {
                 return generateJsonResponse("error", "sell failed: " + response.getResponse());
             }
-            user.getShoppingCart().removeFromCart(i.getItemID(), i.getAmount());
         }
+        user.getShoppingCart().emptyCart();
 
         return generateJsonResponse("ok", "items were all sold");
     }
