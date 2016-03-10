@@ -86,7 +86,7 @@ input:hover {
 
 img.product_image {
   height: 150px;
-  width: auto;
+  width: 150px;
   padding: 0.5em;
   transition: 0.2s;
   border: 3px solid #101010;
@@ -139,6 +139,7 @@ img.product_image:hover {
     width: 50%;
     word-wrap: break-word;
     padding: 5px;
+    margin-top: 75%;
   }
 
   div.product {
