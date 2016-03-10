@@ -10,7 +10,10 @@ import org.jdom2.input.SAXBuilder;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * One object to take care of everything XML!
@@ -75,27 +78,64 @@ public class EasyXML {
      * Downloads all items from the cloud and makes an ArrayList of said items
      * @return A list of all items in our shop
      */
-    public static List<Item> listItems(){
+    public static List<Item> listItems() {
         //Set up the connection
         EasyHTTP listItemsEndpoint = new EasyHTTP(BASE_URL + "/listItems?shopID=96");
         EasyResponse response = listItemsEndpoint.getHTTP();
 
         //Check if the getRequest was successful
-        if(!(response.wasSuccessful())){return null;}
+        if (!(response.wasSuccessful())) { return null; }
 
-        //Safe the retrieved list into an items object
-        Items items = null;
+        //Save the retrieved list into an items object
+        Items allItems = null;
         try {
-            items = new Items(response.getResponse());
-        } catch (JDOMException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+            allItems = new Items(response.getResponse());
+        } catch (JDOMException | IOException e) {
             e.printStackTrace();
         }
 
-        //Convert to a list and return
-        return items.getList();
+        //Get the deleted items
+        EasyHTTP deletedItemsEndpoint = new EasyHTTP(BASE_URL + "/listDeletedItemIDs?shopID=96");
+        response = deletedItemsEndpoint.getHTTP();
+
+        //Check if the getRequest was successful
+        if (!(response.wasSuccessful())) { return null; }
+
+        //Save the retrieved list into an itemIDs object
+        ItemIDs deletedItems = null;
+        try {
+            deletedItems = new ItemIDs(response.getResponse());
+        } catch (JDOMException | IOException e) {
+            e.printStackTrace();
+        }
+
+        // Create a hash map and fill it with the items and their IDs as keys
+        Map<Integer, Item> itemMap = new HashMap<>();
+        for (Item item : allItems.getList()) itemMap.put(item.getItemID(), item);
+
+        // Remove items that occur in the deletedList from the hash map
+        for (int deletedItemID : deletedItems.getList()) itemMap.remove(deletedItemID);
+
+        // Return the values as a list
+        return new ArrayList<>(itemMap.values());
     }
+
+    /**
+     * Downloads all items from the cloud and makes an ArrayList of said items
+     * @return A list of all items in our shop
+     */
+    public static Map<Integer, Item> mapItems(){
+        List<Item> list = listItems();
+
+        HashMap<Integer, Item> map = new HashMap<>();
+
+        for(Item i : list){
+            map.put(i.getItemID(), i);
+        }
+
+        return map;
+    }
+
 
     /**
      * Gets an item from the cloud based on its ID

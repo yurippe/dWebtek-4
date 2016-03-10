@@ -58,9 +58,6 @@ function sellItems(buttonClicked) {
         $(buttonClicked).text("Buy Items")
         updateCart();
     });
-
-
-
 }
 
 function addToCart(buttonClicked) {

@@ -12,7 +12,7 @@ public class ShoppingCartItem extends Item {
     private int amount;
 
     public ShoppingCartItem(int itemID){
-        this(itemID, 1);
+        this(itemID, 0);
     }
 
     public ShoppingCartItem(int itemID, int amount){
@@ -22,6 +22,7 @@ public class ShoppingCartItem extends Item {
 
     public void changeAmount(int count){
         this.amount += count;
+        System.out.println("Now there is " + amount + " items");
     }
 
     public JSONObject getJSON(){
