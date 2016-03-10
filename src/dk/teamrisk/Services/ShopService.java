@@ -138,7 +138,7 @@ public class ShopService extends BaseService {
 
         //Sell Items
         for (ShoppingCartItem i : shoppingCart) {
-            EasyXMLResponse response = EasyXML.sellItems(i.getItemID(), user.getID());
+            EasyXMLResponse response = EasyXML.sellItems(i.getItemID(), user.getID(), i.getAmount());
             if (!response.wasSuccessful()) {
                 return generateJsonResponse("error", "sell failed: " + response.getResponse());
             }

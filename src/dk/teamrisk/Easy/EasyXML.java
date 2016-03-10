@@ -214,10 +214,6 @@ public class EasyXML {
         return feedback.fromEasyResponse(response);
     }
 
-    public static EasyXMLResponse sellItems(int itemID, int customerID){
-        return sellItems(itemID, customerID, 1);
-    }
-
     public static EasyXMLResponse sellItems(int itemID, int customerID, int amount){
 
         EasyXMLResponse feedback = new EasyXMLResponse();

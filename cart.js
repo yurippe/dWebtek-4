@@ -57,6 +57,8 @@ function sellItems(buttonClicked) {
         alert(data.message);
         $(buttonClicked).text("Buy Items")
         updateCart();
+        // Reload page to reflect changes in stock
+        location.reload(true);
     });
 }
 
