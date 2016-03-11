@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Rasmus on 09/03/2016.
+ * An object to hold a list of all the itemIDS
  */
 public class ItemIDs {
 

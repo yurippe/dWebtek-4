@@ -1,7 +1,7 @@
 package dk.teamrisk.data;
 
 /**
- * Created by Kristian on 3/3/2016.
+ * Information on the user.
  */
 public class User {
 
@@ -17,7 +17,6 @@ public class User {
     }
 
     public String getUsername(){return this.username;}
-    //public void setUsername(String username){this.username = username;}
 
     public int getID(){return this.ID;}
 

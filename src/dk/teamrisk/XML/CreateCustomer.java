@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.StringReader;
 
 /**
- * Created by Kristian on 3/3/2016.
+ * Handling the creation of a new customer request.
  */
 public class CreateCustomer extends BaseXMLObject{
 

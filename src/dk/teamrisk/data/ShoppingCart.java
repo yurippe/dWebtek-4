@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.function.Consumer;
 
 /**
- * Created by Kristian on 3/3/2016.
+ * A shoppingcart containing all the items currently considered purchasing by buyhappy customers.
  */
 public class ShoppingCart implements Iterable<ShoppingCartItem> {
     //              itemID    count
@@ -19,7 +19,15 @@ public class ShoppingCart implements Iterable<ShoppingCartItem> {
     }
 
     public boolean addToCart(int ID){return addToCart(ID, 1);}
+
+    /**
+     * Adds an item (or modifies it) to the shoppingcart
+     * @param ID The item to add
+     * @param count The amount of items to add
+     * @return If the addition was successful
+     */
     public boolean addToCart(int ID, int count){
+        //Check if there's already a shoppingcartitem
         if(this.items.containsKey(ID)){
             ShoppingCartItem scItem = this.items.get(ID);
             if(scItem.getItemStock() < scItem.getAmount() + count){
@@ -28,7 +36,9 @@ public class ShoppingCart implements Iterable<ShoppingCartItem> {
                 scItem.changeAmount(count);
                 return true;
             }
-        } else {
+        }
+        //Create a new shoppingcartitem
+        else {
             ShoppingCartItem newItem = new ShoppingCartItem(ID);
             if(newItem.getItemStock() < count){
                 return false;
@@ -40,6 +50,12 @@ public class ShoppingCart implements Iterable<ShoppingCartItem> {
         }
     }
 
+    /**
+     * Removes a shoppingcartitem from the cart. If only parts of it needs to be removed, it is only modified
+     * @param ID The itemID
+     * @param count The amount to remove
+     * @return If the removal was successful
+     */
     public boolean removeFromCart(int ID, int count){
         if(this.items.containsKey(ID) && count > 0){
             ShoppingCartItem scItem = this.items.get(ID);
@@ -54,10 +70,17 @@ public class ShoppingCart implements Iterable<ShoppingCartItem> {
         }
     }
 
+    /**
+     * Reset the cart
+     */
     public void emptyCart(){
         this.items = new HashMap<>();
     }
 
+    /**
+     * Convert the shoppingcart from Java to JSON
+     * @return A JSONObject containing all information on the data
+     */
     public JSONObject getShoppingCartJSON(){
 
         JSONArray itemlist = new JSONArray();

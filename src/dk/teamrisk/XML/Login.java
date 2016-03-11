@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.StringReader;
 
 /**
- * Created by Kristian on 3/3/2016.
+ * Handling XML document for handling users logging in
  */
 public class Login extends BaseXMLObject{
 
@@ -27,7 +27,6 @@ public class Login extends BaseXMLObject{
         this.username = username;
         this.password = password;
     }
-
 
     @Override
     public EasyXMLResponse constructXML() {
@@ -41,7 +40,7 @@ public class Login extends BaseXMLObject{
         root.addContent(createElement("customerName", this.username));
         root.addContent(createElement("customerPass", this.password));
 
-        //Create a document object from the item
+        //Create a document object from the customer
         Document createCustomerDoc = new Document(root);
 
         //Test the document object - problems are safed in the feedback object.

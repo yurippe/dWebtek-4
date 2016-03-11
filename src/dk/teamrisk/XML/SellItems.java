@@ -10,7 +10,7 @@ import org.jdom2.output.XMLOutputter;
 
 
 /**
- * Created by Steffan on 3/9/2016.
+ * Creates a sellItems XML document based on an item and a customer
  */
 public class SellItems extends BaseXMLObject {
 

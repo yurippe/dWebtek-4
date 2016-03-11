@@ -20,6 +20,9 @@ import javax.ws.rs.core.Context;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Handling everything related to the shoppingcart and the items sold.
+ */
 @Path("shop")
 public class ShopService extends BaseService {
 
@@ -28,7 +31,9 @@ public class ShopService extends BaseService {
         super(servletRequest);
     }
 
-
+    /**
+     * Create a list of all the items in the shop.
+     */
     @GET
     @Path("items")
     @Produces("text/json")
@@ -55,6 +60,12 @@ public class ShopService extends BaseService {
 
     }
 
+    /**
+     * Add an item to the shoppingcart.
+     * @param itemID The itemID of the item
+     * @param amount The amount to be added.
+     * @return The success of the addition, including checking of stock.
+     */
     @POST
     @Path("addtocart")
     @Consumes("application/x-www-form-urlencoded")
@@ -80,6 +91,10 @@ public class ShopService extends BaseService {
         }
     }
 
+    /**
+     * Checks the user being logged in and returns the current shoppingcart.
+     * @return A JsonResponse including the shoppingcart
+     */
     @GET
     @Path("getshoppingcart")
     @Produces("text/json")
@@ -93,6 +108,13 @@ public class ShopService extends BaseService {
         return generateJsonResponse("ok", user.getShoppingCart().getShoppingCartJSON());
     }
 
+    /**
+     * A user should also be able to remove an item from the cart,
+     * which is done quite similar to the addition of an item.
+     * @param itemID The itemID of the item to remove.
+     * @param amount The amount to remove
+     * @return The success of the operation
+     */
     @POST
     @Path("removefromcart")
     @Consumes("application/x-www-form-urlencoded")
@@ -115,6 +137,10 @@ public class ShopService extends BaseService {
         }
     }
 
+    /**
+     * When posted to this url, all items currently on the serverside shoppingcart are sold, if possible
+     * @return The success of the operation
+     */
     @POST
     @Path("sellitem")
     @Consumes("application/x-www-form-urlencoded")

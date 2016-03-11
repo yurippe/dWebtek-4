@@ -16,7 +16,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 /**
- * Created by Kristian on 3/5/2016.
+ * Created by Kristian on 3/5/2016 and used for testing, when the AU servers were down.
  */
 
 @Path("cloud")

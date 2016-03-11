@@ -8,7 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
- * Created by Kristian on 3/3/2016.
+ * The basic structure to all the services.
+ *
+ * Primarily this consists of the creation of JSON Responses, which we've standardized throughout
+ * our service. This also holds sessiondata such as the user.
  */
 public abstract class BaseService {
 
